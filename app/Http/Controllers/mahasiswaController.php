@@ -68,7 +68,8 @@ class mahasiswaController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $data = Mahasiswas::where('nim', $id)->first();
+        return view('page.edit')->with('data', $data);
     }
 
     /**
