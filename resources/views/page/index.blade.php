@@ -5,8 +5,8 @@
  <div class="my-3 p-3 bg-body rounded shadow-sm">
     <!-- FORM PENCARIAN -->
     <div class="pb-3">
-      <form class="d-flex" action="" method="get">
-          <input class="form-control me-1" type="search" name="katakunci" value="{{ Request::get('katakunci') }}" placeholder="Masukkan kata kunci" aria-label="Search">
+      <form class="d-flex" action="{{ url('mahasiswa') }}" method="get">
+          <input class="form-control me-1" type="search" name="katakunci" value="{{     Request::get('katakunci') }}" placeholder="Masukkan kata kunci" aria-label="Search">
           <button class="btn btn-secondary" type="submit">Cari</button>
       </form>
     </div>
@@ -27,7 +27,7 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($mahasiswa as $data)
+            @foreach ($data as $data)
             <tr>
                 <td>{{ $loop->iteration }}</td>
                 <td>{{ $data->nim }}</td>
@@ -35,7 +35,11 @@
                 <td>{{ $data->jurusan }}</td>
                 <td>
                     <a href='{{ url('mahasiswa/' .$data->nim. '/edit') }}' class="btn btn-warning btn-sm">Edit</a>
-                    <a href='' class="btn btn-danger btn-sm">Del</a>
+                    <form class="d-inline" action="{{ url('mahasiswa/' .$data->nim) }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" name="submit" class="btn btn-danger btn-sm">Del</button>
+                    </form>
                 </td>
             </tr>
             @endforeach
